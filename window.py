@@ -20,3 +20,6 @@ class Window:
 
     def close(self):
         self.__running = False
+
+    def get_canvas(self):
+        return self.__canvas
