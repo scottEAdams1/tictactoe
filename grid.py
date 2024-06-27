@@ -1,4 +1,4 @@
-import time
+import time, random
 from win import win
 
 class Cell:
@@ -65,8 +65,63 @@ class Grid:
     def update(self):
         finished = False
         while finished == False:
+            self.player2()
             self.draw_grid()
+            
             finished = win(self.grid)
+            
         self.draw_grid()
+
+    def player2(self):
+        if self.count() % 2 != 0:
+            for i in range(3):
+                if self.grid[i][0].type == self.grid[i][1].type and self.grid[i][0].type == "O" and self.grid[i][2].type == "":
+                    self.grid[i][2].type = "O"
+                    break
+                elif self.grid[i][0].type == self.grid[i][2].type and self.grid[i][0].type == "O" and self.grid[i][1].type == "":
+                    self.grid[i][1].type = "O"
+                    break
+                elif self.grid[i][2].type == self.grid[i][1].type and self.grid[i][0].type == "O" and self.grid[i][0].type == "":
+                    self.grid[i][0].type = "O"
+                    break
+        if self.count() % 2 != 0:
+            for i in range(3):
+                if self.grid[0][i].type == self.grid[1][i].type and self.grid[0][i].type == "O" and self.grid[2][i].type == "":
+                    self.grid[2][i].type = "O"
+                    break
+                elif self.grid[0][i].type == self.grid[2][i].type and self.grid[0][i].type == "O" and self.grid[1][i].type == "":
+                    self.grid[1][i].type = "O"
+                    break
+                elif self.grid[2][i].type == self.grid[1][i].type and self.grid[0][i].type == "O" and self.grid[0][i].type == "":
+                    self.grid[0][i].type = "O"
+                    break
+        if self.count() % 2 != 0:
+            if self.grid[0][0].type == self.grid[2][2].type and self.grid[0][0].type == "O" and self.grid[1][1].type == "":
+                self.grid[1][1].type = "O"
+            elif self.grid[0][0].type == self.grid[1][1].type and self.grid[0][0].type == "O" and self.grid[2][2].type == "":
+                self.grid[2][2].type = "O"
+            elif self.grid[2][2].type == self.grid[1][1].type and self.grid[2][2].type == "O" and self.grid[0][0].type == "":
+                self.grid[0][0].type = "O"
+            elif self.grid[0][2].type == self.grid[1][1].type and self.grid[0][2].type == "O" and self.grid[2][0].type == "":
+                self.grid[2][0].type = "O"
+            elif self.grid[0][2].type == self.grid[2][0].type and self.grid[0][2].type == "O" and self.grid[1][1].type == "":
+                self.grid[1][1].type = "O"
+            elif self.grid[2][0].type == self.grid[1][1].type and self.grid[2][0].type == "O" and self.grid[0][2].type == "":
+                self.grid[0][2].type = "O"
+        if self.count() % 2 != 0:
+            while self.count() % 2 != 0:
+                i = random.randint(0, 2)
+                j = random.randint(0, 2)
+                if self.grid[i][j].type == "":
+                    self.grid[i][j].type = "O"
+
+
+    def count(self):
+        total = 0
+        for i in range(3):
+            for j in range(3):
+                if self.grid[i][j].type != "":
+                    total += 1
+        return total
 
     

@@ -12,7 +12,9 @@ class Button:
         self.create_button()
     
     def button_clicked(self):
-        self.cell.type = "X"
+        if self.cell.type == "":
+            self.cell.type = "X"
+            
 
     def create_button(self):
         button = tk.Button(self.root, text = "X", command = self.button_clicked)
@@ -34,5 +36,7 @@ class Buttons:
         for i in range(3):
             col = []
             for j in range(3):
-                col.append(Button(self.window, self.size, [self.point[0] + self.size * i, self.point[1] + self.size * j], self.cells[i][j]))
+                col.append(Button(self.window, self.size,
+                [self.point[0] + self.size * i, self.point[1] + self.size * j],
+                self.cells[i][j]))
             self.buttons.append(col)
