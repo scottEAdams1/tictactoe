@@ -67,8 +67,10 @@ class Grid:
         while finished == False:
             self.player2()
             self.draw_grid()
-            
-            finished = win(self.grid)
+            finished = win(self.grid, self.window)
+            if self.count() == 8:
+                self.window.get_canvas().create_text(300, 400, text = "Tie")
+                finished = True
             
         self.draw_grid()
 
