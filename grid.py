@@ -6,6 +6,7 @@ class Cell:
         self.y = point[1]
         self.size = size
         self.canvas = canvas
+        self.type = ""
 
     def create_line(self, point1, point2):
         self.canvas.create_line(point1[0], point1[1], point2[0], point2[1], fill = "black", width = 2)
@@ -20,6 +21,12 @@ class Cell:
         ##Right
         self.create_line([self.x + self.size, self.y], [self.x + self.size, self.y + self.size])
 
+    def add_x(self):
+        self.create_line([self.x, self.y], [self.x + self.size, self.y + self.size])
+        self.create_line([self.x, self.y + self.size], [self.x + self.size, self.y])
+
+    def add_o(self):
+        self.canvas.create_oval(self.x, self.y, self.x + self.size, self.y + self.size, width = 2)
     
 class Grid:
     def __init__(self, point, size, window):
@@ -43,6 +50,10 @@ class Grid:
         for i in range(3):
             for j in range(3):
                 self.grid[i][j].create_box()
+                if self.grid[i][j].type == "X":
+                    self.grid[i][j].add_x()
+                elif self.grid[i][j].type == "O":
+                    self.grid[i][j].add_o()
         self._animate()
 
     def _animate(self):
@@ -50,5 +61,9 @@ class Grid:
             self.window.redraw()
             time.sleep(0.05)
     
+    def update(self):
+        while True:
+            self.draw_grid()
+
 
     
