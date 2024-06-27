@@ -1,4 +1,5 @@
 import time
+from win import win
 
 class Cell:
     def __init__(self, point, size, canvas):
@@ -62,8 +63,10 @@ class Grid:
             time.sleep(0.05)
     
     def update(self):
-        while True:
+        finished = False
+        while finished == False:
             self.draw_grid()
-
+            finished = win(self.grid)
+        self.draw_grid()
 
     
