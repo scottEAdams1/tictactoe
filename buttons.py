@@ -25,14 +25,16 @@ class Button:
 
 
 class Buttons:
-    def __init__(self, window, point, size, cells):
+    def __init__(self, window, point, size, grid):
         self.point = point
         self.size = size
         self.window = window
         self.root = window.get_root()
         self.buttons = []
-        self.cells = cells
+        self.grid = grid
+        self.cells = grid.grid
         self.create_buttons()
+        self.reset_button()
 
     def create_buttons(self):
         for i in range(3):
@@ -42,3 +44,17 @@ class Buttons:
                 [self.point[0] + self.size * i, self.point[1] + self.size * j],
                 self.cells[i][j]))
             self.buttons.append(col)
+    
+    def reset_button(self):
+        button = tk.Button(self.root, text = "Reset", command = self.reset)
+        button.place(x = 400, y = 10)
+
+    def reset(self):
+        for i in range(3):
+            for j in range(3):
+                self.cells[i][j].type = ""
+                self.buttons[i][j].button.place(x = self.point[0] + self.size * i,
+                y = self.point[1] + self.size * j,
+                width = self.size, height = self.size)
+        self.window.get_canvas().delete("move")
+        self.grid.update(self.buttons)
