@@ -10,16 +10,18 @@ class Button:
         self.size = size
         self.cell = cell
         self.create_button()
+        
     
-    def button_clicked(self):
+    def button_clicked(self, event):
         if self.cell.type == "":
             self.cell.type = "X"
+            event.place_forget()
             
 
     def create_button(self):
-        button = tk.Button(self.root, text = "X", command = self.button_clicked)
-        button.pack()
-        button.place(x = self.point[0],y = self.point[1], width = self.size, height = self.size)
+        self.button = tk.Button(self.root, text = "", command = lambda: self.button_clicked(self.button))
+        self.button.pack()
+        self.button.place(x = self.point[0],y = self.point[1], width = self.size, height = self.size)
 
 
 class Buttons:
