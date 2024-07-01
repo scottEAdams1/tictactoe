@@ -82,9 +82,13 @@ class Grid:
         
         ##Continuous loop
         while finished == False:
-            ##Computer (O) makes a move
-            self.player2(buttons)
             self.draw_grid()
+            ##Computer (O) makes a move
+            if self.count() % 2 != 0:
+                self.draw_grid()
+                time.sleep(0.25)
+                self.player2(buttons)
+                self.draw_grid()
             ##Check for win condition to be met
             finished = win(self.grid, self.window)
             ##Check for a tie
